@@ -1,9 +1,3 @@
-BE_URL=$(jq -r '
-.ALBStack
-| to_entries[]
-| select(.key | test("ALBURL"))
-| .value
-' ../../infrastructure/outputs.json)
+BE_URL=$(kubectl get svc crud-app-service -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
 
-
-VITE_API_URL="$BE_URL/api" pnpm build
+VITE_API_URL="http://$BE_URL/api" pnpm build

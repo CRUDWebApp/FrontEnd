@@ -1,0 +1,28 @@
+{
+  "ECRStack": {
+    "ECRECRRepositoryUri8FDC2E39": "675492141691.dkr.ecr.us-east-1.amazonaws.com",
+    "ECRECRRepositoryNameA21991A9": "backendrepository",
+    "ECRECRRegion0923CF0D": "us-east-1"
+  },
+  "VPCStack": {
+    "VPCVPCAZ9398F278": "us-east-1a,us-east-1b",
+    "PublishOutputRefVPCWebAppVPCrdssubnetSubnet1SubnetD2F646D7FFB0D246": "subnet-0e0eb1d8e4e339407",
+    "PublishOutputFnGetAttVPCWebAppVPCC6483C4ACidrBlockC5705787": "10.0.0.0/16",
+    "VPCVPCPublicSubnetIds55BA463B": "subnet-06ba3533acb4f9e18,subnet-0e39480e0ed98425f",
+    "PublishOutputRefVPCWebAppVPCekssubnetSubnet1Subnet20CE68EC9B0E23C7": "subnet-06ba3533acb4f9e18",
+    "PublishOutputRefVPCWebAppVPCC6483C4A0815ECD8": "vpc-0cd52baa77670b054",
+    "PublishOutputRefVPCWebAppVPCrdssubnetSubnet2Subnet3512576DC64E7E81": "subnet-07499f678bfa0635b",
+    "VPCvpcId11FC5DA8": "vpc-0cd52baa77670b054",
+    "VPCVPCPrivateSubnetIds6F33F182": "subnet-0e0eb1d8e4e339407,subnet-07499f678bfa0635b",
+    "PublishOutputRefVPCWebAppVPCekssubnetSubnet2Subnet0D43E6ACF5D1C964": "subnet-0e39480e0ed98425f"
+  },
+  "EKSStack": {
+    "EKSStackEKSClusterName40EEE726": "EKSCluster",
+    "EKSStackEKSNodeGroupECEE47C5": "Nodegroup2"
+  },
+  "RDSStack": {
+    "RDSDatabaseEndpoint1FA80DFB": "rdsstack-rdspostgresdatabase0fe53f5d-gucn3ya7d0oj.cezse04equbg.us-east-1.rds.amazonaws.com",
+    "RDSDatabasePortAAB5B2F9": "5432",
+    "RDSDatabaseSecretArn4457360A": "arn:aws:secretsmanager:us-east-1:675492141691:secret:RDSDatabaseSecret966E1535-A3xF51Ucpr68-mOS0s1"
+  }
+}

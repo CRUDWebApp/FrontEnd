@@ -1,0 +1,55 @@
+name: Deploy to EKS
+
+on:
+  pull_request:
+    branches:
+      - main 
+      - develop
+
+  workflow_dispatch:
+
+jobs:
+  deploy-to-eks:
+    runs-on: ubuntu-latest
+    steps:
+        -   name: Checkout Code
+            uses: actions/checkout@v4
+
+        -   name: Configure AWS credentials
+            uses: aws-actions/configure-aws-credentials@v4
+            with:
+                aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                aws-region: us-east-1
+                
+        -   name: Install pnpm
+            uses: pnpm/action-setup@v6
+            with:
+                version: 11
+                cache: true
+                cache_dependency_path: ./infrastructure/pnpm-lock.yaml
+
+        -   name: Install dependencies
+            working-directory: ./infrastructure
+            run: pnpm install --frozen-lockfile
+
+        -   name: Connect to EKS Cluster
+            run: |
+                aws eks update-kubeconfig --region us-east-1 --name ${{ env.CLUSTER_NAME }}
+          
+        -   name: Get Ingress URL
+            run: |
+                BE_URL=""
+                while [ -z "$BE_URL" ]; do
+                    BE_URL=$(kubectl get ingress -o jsonpath='{.items[0].status.loadBalancer.ingress[0].hostname}')
+                    
+                    if [ -z "$BE_URL" ]; then
+                        sleep 15
+                    fi
+                done
+
+                echo "Backend URL: $BE_URL"
+
+        -   name: Build Frontend
+            run: |
+                VITE_API_URL="http://$BE_URL/api" pnpm build
